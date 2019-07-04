@@ -97,14 +97,14 @@ void setup()
   FastLED.setBrightness(BRIGHTNESS);
   DDRB &= B11101111; //13 input
 
-  PORTB &= B10111110; //8 to 13 LOW
+  //PORTB &= B10111110; //8 to 13 LOW
 }
 
 void draw_a_line(int this_line)
 {
   for (int i = 0; i < 8; ++i)
   {
-leds[i] = this_line & (1 << i)？ CRGB:: White : CRGB::Black;
+    leds[i] = this_line & (1 << i)?CRGB:: Red : CRGB::Black;
     //leds[i] = this_line & (1 << i);
   }
   FastLED.show();
@@ -403,13 +403,13 @@ void loop()
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
   currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
-  delayTime = 35;
-  if ((elapsed_loop_counter >= 10 * (216)) && (elapsed_loop_counter < 10 * (217)) && text_ok)
-  {
+  delayTime = 500;
+  //if ((elapsed_loop_counter >= 10 * (216)) && (elapsed_loop_counter < 10 * (217)) && text_ok)
+  //{
     displayString("electronoobs", delayTime);
     //delayMicroseconds(delayTime*10);
-    text_ok = 0;
-  }
+    //text_ok = 0;
+  //}
 }
 
 ISR(PCINT0_vect)
