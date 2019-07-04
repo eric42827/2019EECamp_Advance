@@ -104,7 +104,8 @@ void draw_a_line(int this_line)
 {
   for (int i = 0; i < 8; ++i)
   {
-    leds[i] = this_line & (1 << i);
+leds[i] = this_line & (1 << i)？ CRGB:: White : CRGB::Black;
+    //leds[i] = this_line & (1 << i);
   }
   FastLED.show();
 }
