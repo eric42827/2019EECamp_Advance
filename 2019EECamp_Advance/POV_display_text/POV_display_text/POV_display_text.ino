@@ -145,7 +145,8 @@ void loop() {
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
   if((elapsed_loop_counter >=  time_per_deg*(216)) && (elapsed_loop_counter <  time_per_deg*(217)) &&  text_ok)
   { 
-  displayString("electronoobs",delayTime);
+  //displayString("electronoobs.",delayTime);
+  displayString(".",delayTime);
   //delayMicroseconds(delayTime*10);
   text_ok=0;
   }

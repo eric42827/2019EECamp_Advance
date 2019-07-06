@@ -389,27 +389,27 @@ void loop()
 
   currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
-  delayTime = time_per_deg ; //we want 2 degrees for each line of the letters
+  delayTime = time_per_deg * 3.5; //we want 2 degrees for each line of the letters
 
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
   if ((elapsed_loop_counter >= time_per_deg * (216)) && (elapsed_loop_counter < time_per_deg * (217)) && text_ok)
   {
-    displayString("ntuee.", delayTime);
+    displayString("electronoobs", delayTime);
     //delayMicroseconds(delayTime*10);
     text_ok = 0;
   }
 
-/*
+
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
-  currentMillis = micros();
+  /*currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
   delayTime = 2000;
-  //if ((elapsed_loop_counter >= 10 * (216)) && (elapsed_loop_counter < 10 * (217)) && text_ok)
-  //{
-    displayString("ntuee", delayTime);
+  if ((elapsed_loop_counter >= 10 * (216)) && (elapsed_loop_counter < 10 * (217)) && text_ok)
+  {
+    displayString("a", delayTime);
     //delayMicroseconds(delayTime*10);
-    //text_ok = 0;
-  //}*/
+    text_ok = 0;
+  }*/
 }
 
 ISR(PCINT0_vect)
