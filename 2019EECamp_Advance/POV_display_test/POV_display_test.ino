@@ -2,7 +2,7 @@
  * 
  * Subscribe: http://www.youtube.com/c/ELECTRONOOBS
  * Tutorial: http://www.electronoobs.com/eng_arduino_tut21.php
- */
+ *//*
 #include <bitswap.h>
 #include <chipsets.h>
 #include <color.h>
@@ -30,7 +30,7 @@
 #include <pixeltypes.h>
 #include <platforms.h>
 #include <power_mgt.h>
-
+*/
 #include <FastLED.h>
 #define LED_PIN 8
 #define NUM_LEDS 8
