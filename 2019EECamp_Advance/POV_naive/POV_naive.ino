@@ -2,35 +2,7 @@
  * 
  * Subscribe: http://www.youtube.com/c/ELECTRONOOBS
  * Tutorial: http://www.electronoobs.com/eng_arduino_tut21.php
- *//*
-#include <bitswap.h>
-#include <chipsets.h>
-#include <color.h>
-#include <colorpalettes.h>
-#include <colorutils.h>
-#include <controller.h>
-#include <cpp_compat.h>
-#include <dmx.h>
-#include <FastLED.h>
-#include <fastled_config.h>
-#include <fastled_delay.h>
-#include <fastled_progmem.h>
-#include <fastpin.h>
-#include <fastspi.h>
-#include <fastspi_bitbang.h>
-#include <fastspi_dma.h>
-#include <fastspi_nop.h>
-#include <fastspi_ref.h>
-#include <fastspi_types.h>
-#include <hsv2rgb.h>
-#include <led_sysdefs.h>
-#include <lib8tion.h>
-#include <noise.h>
-#include <pixelset.h>
-#include <pixeltypes.h>
-#include <platforms.h>
-#include <power_mgt.h>
-*/
+ */
 #include <FastLED.h>
 #define LED_PIN 8
 #define NUM_LEDS 8
@@ -38,9 +10,8 @@
 #define LED_TYPE WS2811
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
-#define UPDATES_PER_SECOND 100
 
-int text_ok = 0;
+
 int a[] = {126, 144, 144, 144, 126};
 int b[] = {254, 146, 146, 146, 108};
 int c[] = {254, 130, 130, 130, 130};
@@ -77,17 +48,15 @@ float delayTime = 1;
 //POV clock cariables
 unsigned long currentMillis, elapsed_loop_counter, previousMillis;
 unsigned long counter_1, current_count;
-
+int text_ok = 0;
 //Interruption varaibles to count rotation speed
 //We create 4 variables to store the previous value of the input signal (if LOW or HIGH)
-byte last_IN_state;     //Here we store the previous state on digital pin 13
+byte last_state;     //Here we store the previous state on digital pin 13
 float one_rot_time = 0; //Here we store the full rotation time
 float time_per_deg = 0; //Here we store the time it takes to make one degree rotation
 
 void setup()
 {
-  PCICR |= (1 << PCIE0);   //enable PCMSK0 scan
-  PCMSK0 |= (1 << PCINT4); //Enable pin state interruption on pin D13
 
   //Output pins register configuration
   //DDRB |= B00000001;      //8 as output
@@ -104,8 +73,7 @@ void draw_a_line(int this_line)
 {
   for (int i = 0; i < 8; ++i)
   {
-    leds[i] = this_line & (1 << i)?CRGB:: Red : CRGB::Black;
-    //leds[i] = this_line & (1 << i);
+    leds[i] = this_line & (1 << i)? CRGB::Red : CRGB::Black;
   }
   FastLED.show();
 }
@@ -376,18 +344,8 @@ void displayChar(char cr, float line_delay)
   delayMicroseconds(line_delay * 2);
 }
 
-void displayString(const char *s, float line_delay)
+void displayString(char *s, float line_delay)
 {
-  auto len = strlen(s);
-  int totalLine = 2*len; // for spacing between char
-  for(int i=0; i < len; ++i) {
-    if(i == '.')
-      totalLine += 4;
-    else if(i == 'i' || i == '!')
-      totalLine += 3;  
-    else
-      totalLine += 5;
-  }
   for (int i = 0; i <= strlen(s); i++)
   {
     displayChar(s[i], line_delay);
@@ -396,22 +354,69 @@ void displayString(const char *s, float line_delay)
 
 void loop()
 {
-
-  currentMillis = micros();
-  elapsed_loop_counter = currentMillis - previousMillis;
-  delayTime = time_per_deg ; //we want 2 degrees for each line of the letters
-
-  //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
-  if ((elapsed_loop_counter >= 0) && (elapsed_loop_counter < time_per_deg) && text_ok)
-  {
-//    displayString("ntuee.", delayTime);
-    draw_a_line(0b11111111);
-    delayMicroseconds(1);
-    draw_a_line(0);
-    //delayMicroseconds(delayTime*10);
-    text_ok = 0;
-  }
-//  if((elapsed_loop_counter >= time_per_deg * (216)) && (elapsed_loop_counter < time_per_deg * (217)) && text_ok)
+  draw_a_line(a[0]);
+  delayMicroseconds(300);
+  draw_a_line(0);
+  delayMicroseconds(300);
+//  draw_a_line(a[1]);
+//  delay(125);
+//  draw_a_line(a[2]);
+//  delay(125);
+//  draw_a_line(a[3]);
+//  delay(125);
+//  draw_a_line(a[4]);
+//  delay(125);
+//  draw_a_line(b[0]);
+//  delay(125);
+//  draw_a_line(b[1]);
+//  delay(125);
+//  draw_a_line(b[2]);
+//  delay(125);
+//  draw_a_line(b[3]);
+//  delay(125);
+//  draw_a_line(b[4]);
+//  delay(125);
+//  draw_a_line(c[0]);
+//  delay(125);
+//  draw_a_line(c[1]);
+//  delay(125);
+//  draw_a_line(c[2]);
+//  delay(125);
+//  draw_a_line(c[3]);
+//  delay(125);
+//  draw_a_line(c[4]);
+//  delay(125);
+//  draw_a_line(d[0]);
+//  delay(125);
+//  draw_a_line(d[1]);
+//  delay(125);
+//  draw_a_line(d[2]);
+//  delay(125);
+//  draw_a_line(d[3]);
+//  delay(125);
+//  draw_a_line(d[4]);
+//  delay(125);
+//  current_count = micros();
+//  ///////////////////////////////////////Channel 1
+//  bool value = PINB & B00010000;
+//  if(value != last_state) {
+//    if(value) {
+//      last_state = 0;                        //Store the current state into the last state for the next loop
+//      one_rot_time = current_count - counter_1; //We make the time difference. Channel 1 is current_time - timer_1.
+//      time_per_deg = one_rot_time / 360.0;
+//      previousMillis = micros();
+//      text_ok = 1;
+//    } else {
+//       counter_1 = current_count;
+//    }
+//    last_state = value;
+//  }
+//  currentMillis = micros();
+//  elapsed_loop_counter = currentMillis - previousMillis;
+//  delayTime = time_per_deg ; //we want 2 degrees for each line of the letters
+//
+//  //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
+//  if ((elapsed_loop_counter >= time_per_deg * (216)) && (elapsed_loop_counter < time_per_deg * (217)) && text_ok)
 //  {
 //    displayString("ntuee.", delayTime);
 //    //delayMicroseconds(delayTime*10);
@@ -429,29 +434,4 @@ void loop()
     //delayMicroseconds(delayTime*10);
     //text_ok = 0;
   //}*/
-}
-
-ISR(PCINT0_vect)
-{
-  //First we take the current count value in micro seconds using the micros() function
-
-  current_count = micros();
-  ///////////////////////////////////////Channel 1
-  if (PINB & B00010000)
-  { //We make an AND with the pin state register, We verify if pin 12 is HIGH???
-    if (last_IN_state == 0)
-    {                            //If the last state was 0, then we have a state change...
-      last_IN_state = 1;         //Store the current state into the last state for the next loop
-      counter_1 = current_count; //Set counter_1 to current value.
-    }
-  }
-//  else
-  else if (last_IN_state == 1)
-  {                                           //If pin 8 is LOW and the last state was HIGH then we have a state change
-    last_IN_state = 0;                        //Store the current state into the last state for the next loop
-    one_rot_time = current_count - counter_1; //We make the time difference. Channel 1 is current_time - timer_1.
-    time_per_deg = one_rot_time / 360.0;
-    previousMillis = micros();
-    text_ok = 1;
-  }
 }
