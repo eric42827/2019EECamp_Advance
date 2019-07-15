@@ -66,102 +66,161 @@ void draw_a_line(int this_line)
   FastLED.show();
 }
 
-void displayChar(char cr)
+void displayChar(char cr, float line_delay)
 {
   if (cr == 'a')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::a[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'b')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::b[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'c')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::c[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'd')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::d[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'e')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::e[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'f')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::f[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'g')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::g[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'h')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::h[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'i')
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++){
       draw_a_line(pattern::i[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'j')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::j[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'k')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::k[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'l')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::l[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'm')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::m[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'n')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::n[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'o')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::o[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'p')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::p[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'q')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::q[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'r')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::r[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 's')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::s[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 't')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::t[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'u')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::u[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'v')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::v[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'w')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::w[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'x')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::x[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'y')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::y[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == 'z')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::z[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == '!')
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++){
       draw_a_line(pattern::excl[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == '?')
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++){
       draw_a_line(pattern::ques[i]);
+      delayMicroseconds(line_delay);
+    }
   else if (cr == '.')
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++){
       draw_a_line(pattern::eos[i]);
+      delayMicroseconds(line_delay);
+    }
   draw_a_line(0);
+  delayMicroseconds(line_delay);
 }
 
-void displayString(char *s)
+void displayString(char *s, float line_delay)
 {
   for (int i = 0; i <= strlen(s); i++)
-    displayChar(s[i]);
+    displayChar(s[i], line_delay);
 }
 
 void loop()
@@ -176,7 +235,7 @@ void loop()
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
   if ((time_delta >= time_per_deg * (216)) && (time_delta < time_per_deg * (217)) && text_ok)
   {
-    displayString("ntuee.");
+    displayString("ntuee.", delay_time);
     text_ok = 0;
   }
 }
