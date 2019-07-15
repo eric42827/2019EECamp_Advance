@@ -1,8 +1,3 @@
-/* Electronoobs POV dsiplay (Persistance of vision)
- * 
- * Subscribe: http://www.youtube.com/c/ELECTRONOOBS
- * Tutorial: http://www.electronoobs.com/eng_arduino_tut21.php
- */
 #include <FastLED.h>
 #define LED_PIN 8
 #define NUM_LEDS 8
@@ -185,7 +180,7 @@ void displayString(char *s, float line_delay)
 
 void loop()
 {
-
+  
   currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
   delayTime = time_per_deg; //we want 2 degrees for each line of the letters

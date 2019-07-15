@@ -2,35 +2,7 @@
  * 
  * Subscribe: http://www.youtube.com/c/ELECTRONOOBS
  * Tutorial: http://www.electronoobs.com/eng_arduino_tut21.php
- *//*
-#include <bitswap.h>
-#include <chipsets.h>
-#include <color.h>
-#include <colorpalettes.h>
-#include <colorutils.h>
-#include <controller.h>
-#include <cpp_compat.h>
-#include <dmx.h>
-#include <FastLED.h>
-#include <fastled_config.h>
-#include <fastled_delay.h>
-#include <fastled_progmem.h>
-#include <fastpin.h>
-#include <fastspi.h>
-#include <fastspi_bitbang.h>
-#include <fastspi_dma.h>
-#include <fastspi_nop.h>
-#include <fastspi_ref.h>
-#include <fastspi_types.h>
-#include <hsv2rgb.h>
-#include <led_sysdefs.h>
-#include <lib8tion.h>
-#include <noise.h>
-#include <pixelset.h>
-#include <pixeltypes.h>
-#include <platforms.h>
-#include <power_mgt.h>
-*/
+ */
 #include <FastLED.h>
 #define LED_PIN 8
 #define NUM_LEDS 8
@@ -84,6 +56,10 @@ byte last_IN_state;     //Here we store the previous state on digital pin 13
 float one_rot_time = 0; //Here we store the full rotation time
 float time_per_deg = 0; //Here we store the time it takes to make one degree rotation
 
+constexpr bool atDegree(int degree) {
+  return elapsed_loop_counter >= time_per_deg * degree && elapsed_loop_counter < time_per_deg * (degree + 1);
+}
+
 void setup()
 {
   PCICR |= (1 << PCIE0);   //enable PCMSK0 scan
@@ -110,325 +86,126 @@ void draw_a_line(int this_line)
   FastLED.show();
 }
 
-void displayChar(char cr, float line_delay)
+void displayChar(char cr)
 {
   if (cr == 'a')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(a[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'b')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(b[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'c')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(c[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'd')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(d[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'e')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(e[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'f')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(f[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'g')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(g[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'h')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(h[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'i')
-  {
     for (int itr = 0; itr < 3; itr++)
-    {
       draw_a_line(i[itr]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'j')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(j[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'k')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(k[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'l')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(l[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'm')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(m[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'n')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(n[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'o')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(o[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'p')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(p[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'q')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(q_letter[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'r')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(r[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 's')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(s[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 't')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(t[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'u')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(u[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'v')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(v[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'w')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(w[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'x')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(x[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'y')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(y[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == 'z')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(z[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == '!')
-  {
     for (int i = 0; i < 3; i++)
-    {
       draw_a_line(excl[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == '?')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(ques[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
   if (cr == '.')
-  {
     for (int i = 0; i < 4; i++)
-    {
       draw_a_line(eos[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  delayMicroseconds(line_delay * 2);
+  draw_a_line(0);
 }
 
-void displayString(const char *s, float line_delay)
+void displayString(char *s)
 {
-  auto len = strlen(s);
-  int totalLine = 2*len; // for spacing between char
-  for(int i=0; i < len; ++i) {
-    if(i == '.')
-      totalLine += 4;
-    else if(i == 'i' || i == '!')
-      totalLine += 3;  
-    else
-      totalLine += 5;
-  }
   for (int i = 0; i <= strlen(s); i++)
-  {
-    displayChar(s[i], line_delay);
-  }
+    displayChar(s[i]);
 }
 
 void loop()
 {
-
+  static bool isEvenRound = true;
   currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
   delayTime = time_per_deg ; //we want 2 degrees for each line of the letters
 
+  if(text_ok && isEvenRound) {
+    if(atDegree)
+
+  } else {
+
+  }
+
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
-  if ((elapsed_loop_counter >= 0) && (elapsed_loop_counter < time_per_deg) && text_ok)
+  if (atDegree(216) && text_ok)
   {
-//    displayString("ntuee.", delayTime);
-    draw_a_line(0b11111111);
-    delayMicroseconds(1);
-    draw_a_line(0);
+    displayString("ntuee.");
     //delayMicroseconds(delayTime*10);
     text_ok = 0;
   }
-//  if((elapsed_loop_counter >= time_per_deg * (216)) && (elapsed_loop_counter < time_per_deg * (217)) && text_ok)
-//  {
-//    displayString("ntuee.", delayTime);
-//    //delayMicroseconds(delayTime*10);
-//    text_ok = 0;
-//  }
-
-/*
-  //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
-  currentMillis = micros();
-  elapsed_loop_counter = currentMillis - previousMillis;
-  delayTime = 2000;
-  //if ((elapsed_loop_counter >= 10 * (216)) && (elapsed_loop_counter < 10 * (217)) && text_ok)
-  //{
-    displayString("ntuee", delayTime);
-    //delayMicroseconds(delayTime*10);
-    //text_ok = 0;
-  //}*/
+  isEvenRound = !isEvenRound;
 }
 
 ISR(PCINT0_vect)
@@ -445,7 +222,6 @@ ISR(PCINT0_vect)
       counter_1 = current_count; //Set counter_1 to current value.
     }
   }
-//  else
   else if (last_IN_state == 1)
   {                                           //If pin 8 is LOW and the last state was HIGH then we have a state change
     last_IN_state = 0;                        //Store the current state into the last state for the next loop

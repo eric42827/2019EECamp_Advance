@@ -6,8 +6,11 @@
 int hallSensorPin = 13;     
 int ledPin =  8;    
 int state = 0;
-
+bool prev_state = 0;
+unsigned long cctime = 0;
+unsigned long current = 0,prev = 0;
 void setup() {
+  Serial.begin(115200);
   pinMode(ledPin, OUTPUT);      
   pinMode(hallSensorPin, INPUT);     
 }
@@ -15,10 +18,21 @@ void setup() {
 void loop(){
   
   state = digitalRead(hallSensorPin);
-  if (state == LOW) {        
-    digitalWrite(ledPin, HIGH);  
-  } 
-  else {
-    digitalWrite(ledPin, LOW); 
+  if(prev_state != state) {
+   if (state == LOW) {  // HIGH to LOW
+      current = micros();
+      cctime = current - prev;
+      Serial.println(cctime);
+      //Serial.println(current);
+     
+      digitalWrite(ledPin, HIGH); 
+     prev_state = LOW; 
+   } 
+   else { // LOW to HIGH
+     //Serial.println("cctime");
+     digitalWrite(ledPin, LOW); 
+      prev_state = HIGH;
+   }
   }
+  prev = current;
 }
