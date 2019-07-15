@@ -214,37 +214,46 @@ void draw_a_line(int this_line)
 void displayChar(char cr, float line_delay)
 {
 
-  if (cr == 'i')
+  if (cr == 'i') {
     for (int itr = 0; itr < 3; itr++)
     {
       draw_a_line(char_i[itr]);
       delayMicroseconds(line_delay);
     }
-  else if (cr >= 'a' && cr <= 'z')
+    draw_a_line(0);
+  }
+  else if (cr >= 'a' && cr <= 'z') {
     for (int i = 0; i < 5; i++)
     {
       draw_a_line(letters[cr - 'a'][i]);
       delayMicroseconds(line_delay);
     }
-  else if (cr == '!')
+    draw_a_line(0);
+  }
+  else if (cr == '!') {
     for (int i = 0; i < 3; i++)
     {
       draw_a_line(excl[i]);
       delayMicroseconds(line_delay);
     }
-  else if (cr == '?')
+    draw_a_line(0);
+  }
+  else if (cr == '?') {
     for (int i = 0; i < 5; i++)
     {
       draw_a_line(ques[i]);
       delayMicroseconds(line_delay);
     }
-  else if (cr == '.')
+    draw_a_line(0);
+  }
+  else if (cr == '.') {
     for (int i = 0; i < 4; i++)
     {
       draw_a_line(eos[i]);
       delayMicroseconds(line_delay);
     }
-  draw_a_line(0);
+    draw_a_line(0);
+  }
   delayMicroseconds(line_delay * 2);
 }
 
@@ -274,22 +283,21 @@ ISR(PCINT0_vect)
 {
   //First we take the current count value in micro seconds using the micros() function
 
-  current_count = micros();
   ///////////////////////////////////////Channel 1
-  if (PINB & B00010000)
-  { //We make an AND with the pin state register, We verify if pin 12 is HIGH???
-    if (last_IN_state == 0)
-    {                            //If the last state was 0, then we have a state change...
-      last_IN_state = 1;         //Store the current state into the last state for the next loop
-      counter_1 = current_count; //Set counter_1 to current value.
+  if (PINB & B00010000) // Read from PB4 (PIN 12), true if 12 is HIGH (rising edge)
+  {
+    if (last_IN_state == 0) // 12 goes from LOW to HIGH
+    {
+      last_IN_state = 1;         // Store the current state into the last state for the next loop
+      counter_1 = micros(); // Set counter_1 to current value.
     }
   }
-  else if (last_IN_state == 1)
-  {                                           //If pin 8 is LOW and the last state was HIGH then we have a state change
-    last_IN_state = 0;                        //Store the current state into the last state for the next loop
-    one_rot_time = current_count - counter_1; //We make the time difference. Channel 1 is current_time - timer_1.
+  else if (last_IN_state == 1) // 12 is LOW, and goes from HIGH to LOW (falling edge)
+  {
+    last_IN_state = 0;                        // Store the current state into the last state for the next loop
+    one_rot_time = micros() - counter_1; // We make the time difference. Channel 1 is current_time - timer_1.
     time_per_deg = one_rot_time / 360.0;
     previousMillis = micros();
-    text_ok = 1;
+    text_ok = true;
   }
 }
