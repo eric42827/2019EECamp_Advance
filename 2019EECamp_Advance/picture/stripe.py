@@ -1,6 +1,7 @@
 from skimage import io
 from argparse import ArgumentParser
 import math
+import turtle as tt
 
 LED_NUM = 8
 
@@ -45,6 +46,11 @@ def picture2Lines(picture, output, num) :
 			f.write('\n')
 
 		f.write('};\n')
+
+def turtle2lines(output, num) :
+	tt.getscreen().getcanvas().postscript(file='.temp.ps')
+	picture2Lines('.temp.ps', output, num)
+
 
 
 if __name__ == '__main__':
