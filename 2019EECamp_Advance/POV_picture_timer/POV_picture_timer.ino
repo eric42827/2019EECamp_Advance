@@ -43,15 +43,19 @@ void setup()
 
 
 int line_index = 0;
-float deltat = 0;
-unsigned long last_update = 0;
+float tPerRound = 0;
+unsigned long last_update = 0, dt;
 void loop()
 {
   currentMillis = micros();
+  elapsed_loop_counter = currentMillis - previousMillis;
+  if(tPerRound == 0 || one_rot_time <= tPerRound * 1.5)tPerRound = one_rot_time;
+  dt = currentMillis - last_update;
 
-  
-
-  if ((elapsed_loop_counter >= time_per_deg * (0)) && (elapsed_loop_counter < time_per_deg * (2)))line_index = 0;
+  if ((tPerRound != 0 && dt > tPerRound) ||   elapsed_loop_counter < time_per_deg * 2){
+    line_index = 0;
+    last_update = currentMillis;
+  }
   else line_index = line_index < STRIPE_NUM+1 ? line_index+1 : STRIPE_NUM+1;
   if (line_index <= STRIPE_NUM) {
     for(int i=0; i<NUM_LEDS; i++){
@@ -61,7 +65,7 @@ void loop()
     FastLED.show();
   }
 
-  //digitalWrite(13, line_index >= 32);
+  digitalWrite(13, line_index == 65);
 }
 
 ISR(PCINT0_vect)
