@@ -5,7 +5,7 @@ import math
 LED_NUM = 8
 
 def picture2Lines(picture, output, num) :
-	pic = io.imread(picture).astype('byte')
+	pic = io.imread(picture).astype('int')
 
 	height, width, _ = pic.shape
 	radius = min(height, width) // 2
@@ -14,7 +14,7 @@ def picture2Lines(picture, output, num) :
 	with open(output,'w') as f :
 		f.write('const int STRIPE_NUM = ' + str(num) + ';\n')
 
-		f.write('const int')
+		f.write('const byte ')
 		f.write('[' + str(num) + ']')
 		f.write('[' + str(LED_NUM) + ']')
 		f.write('[3]')
@@ -27,8 +27,9 @@ def picture2Lines(picture, output, num) :
 			f.write('{')
 
 			for j in range(LED_NUM) : # LED number
-				x = int(center[0] + radius / LED_NUM * (j+1) * math.cos(theta) + 0.5)
-				y = int(center[1] + radius / LED_NUM * (j+1) * math.sin(theta) + 0.5)
+				r = radius / LED_NUM * (j+1) /2 + radius /2
+				x = int(center[0] + r*math.cos(theta) + 0.5)
+				y = int(center[1] + r*math.sin(theta) + 0.5)
 
 				if x >= width : x = width-1
 				if x < 0 : x = 0
