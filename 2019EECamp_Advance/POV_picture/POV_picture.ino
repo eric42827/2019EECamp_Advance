@@ -1,5 +1,9 @@
 #include <FastLED.h>
-#include "picture.h"
+//#include "rich.h"
+//#include "allwant.h"
+//#include "bigmouthbird.h"
+#include "flag.h"
+//#include "max.h"
 #define LED_PIN 8
 #define NUM_LEDS 8
 #define BRIGHTNESS 30
@@ -360,30 +364,49 @@ void displayString(char *s, float line_delay)
   }
 }
 
+int line_index = 0;
 void loop()
 {
   currentMillis = micros();
+
   elapsed_loop_counter = currentMillis - previousMillis;
   delayTime = time_per_deg *2 ; //we want 2 degrees for each line of the letters
 
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
-  if ((elapsed_loop_counter >= time_per_deg * (1)) && (elapsed_loop_counter < time_per_deg * (2)) && text_ok)
-  {
-    for(int j=0;j<64;j++){
-      for(int i=0; i<NUM_LEDS; i++){
-          leds[i] = CRGB(lines[j][i][0],lines[j][i][1],lines[j][i][2]);
-      }
-      FastLED.show();
-      
-    }
+  //if ((elapsed_loop_counter >= time_per_deg * (1)) && (elapsed_loop_counter < time_per_deg * (2)) && text_ok)
+//  if ((elapsed_loop_counter >= time_per_deg * (0)) && (elapsed_loop_counter < time_per_deg * (2)))
+//  {
+//    for(int j=0;j<63;j++){
+//      for(int i=0; i<NUM_LEDS; i++){
+//          leds[i] = CRGB(lines[j][i][0],lines[j][i][1],lines[j][i][2]);
+//      }
+//      FastLED.show();
+//      
+//    }
+//
+//    for(int i=0; i<NUM_LEDS; i++){
+//          leds[i] = CRGB(0,0,0);
+//    }
+//    FastLED.show();
+//    //displayString("abcdefg", delayTime);
+//    //delayMicroseconds(delayTime*10);
+//    //text_ok = 0;
+//  }
+
+  if ((elapsed_loop_counter >= time_per_deg * (0)) && (elapsed_loop_counter < time_per_deg * (2)))line_index = 0;
+  else line_index = line_index < STRIPE_NUM+1 ? line_index+1 : STRIPE_NUM+1;
+  if (line_index <= STRIPE_NUM) {
     for(int i=0; i<NUM_LEDS; i++){
-          leds[i] = CRGB(0,0,0);
-      }
+           if(line_index < STRIPE_NUM) leds[i] = CRGB(lines[line_index][i][0],lines[line_index][i][1],lines[line_index][i][2]);
+           else leds[i] = CRGB(0,0,0);
+    }
     FastLED.show();
-    //displayString("abcdefg", delayTime);
-    //delayMicroseconds(delayTime*10);
-    text_ok = 0;
   }
+
+  digitalWrite(13, line_index == 65);
+    
+
+  
 
 /*
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
@@ -418,6 +441,7 @@ ISR(PCINT0_vect)
     one_rot_time = current_count - counter_1; //We make the time difference. Channel 1 is current_time - timer_1.
     time_per_deg = one_rot_time / 360.0;
     previousMillis = micros();
-    text_ok = 1;
+    //text_ok = 1;
+
   }
 }
