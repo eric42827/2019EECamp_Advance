@@ -5,7 +5,7 @@ import math
 LED_NUM = 8
 
 def picture2Lines(picture, output, num) :
-	pic = io.imread(picture).astype('int')
+	pic = io.imread(picture).astype('byte')
 
 	height, width, _ = pic.shape
 	radius = min(height, width) // 2
