@@ -14,11 +14,10 @@ def picture2Lines(picture, output, num) :
 	with open(output,'w') as f :
 		f.write('const int STRIPE_NUM = ' + str(num) + ';\n')
 
-		f.write('const byte ')
+		f.write('const byte lines')
 		f.write('[' + str(num) + ']')
 		f.write('[' + str(LED_NUM) + ']')
 		f.write('[3]')
-		f.write(' lines')
 
 		f.write(' = {\n')
 
