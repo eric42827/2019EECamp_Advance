@@ -8,6 +8,7 @@ CRGB leds[NUM_LEDS];
 #define UPDATES_PER_SECOND 100
 
 int text_ok = 0;
+<<<<<<< HEAD
 int a[] = {126, 144, 144, 144, 126};
 int b[] = {254, 146, 146, 146, 108};
 int c[] = {254, 130, 130, 130, 130};
@@ -38,6 +39,37 @@ int te[] = {3,48,192,48,3};
 int eos[] = {0, 3, 2, 0};
 int excl[] = {0, 250, 0};
 int ques[] = {64, 128, 138, 144, 96};
+=======
+byte a[] = {126, 144, 144, 144, 126};
+byte b[] = {254, 146, 146, 146, 108};
+byte c[] = {254, 130, 130, 130, 130};
+byte d[] = {254, 130, 130, 130, 124};
+byte e[] = {254, 146, 146, 146, 146};
+byte f[] = {254, 144, 144, 144, 128};
+byte g[] = {124, 130, 138, 138, 76};
+byte h[] = {254, 16, 16, 16, 254};
+byte i[] = {130, 250, 130};
+byte j[] = {12, 2, 2, 2, 252};
+byte k[] = {254, 16, 40, 68, 130};
+byte l[] = {254, 2, 2, 2, 2};
+byte m[] = {254, 64, 32, 64, 254};
+byte n[] = {254, 32, 16, 8, 254};
+byte o[] = {124, 130, 130, 130, 124};
+byte p[] = {254, 136, 136, 136, 112};
+byte q_letter[] = {124, 130, 138, 134, 126};
+byte r[] = {254, 144, 152, 148, 98};
+byte s[] = {100, 146, 146, 146, 76};
+byte t[] = {128, 128, 254, 128, 128};
+byte u[] = {252, 2, 2, 2, 252};
+byte v[] = {248, 4, 2, 4, 248};
+byte w[] = {254, 4, 8, 4, 254};
+byte x[] = {198, 40, 16, 40, 198};
+byte y[] = {224, 16, 14, 16, 224};
+byte z[] = {134, 138, 146, 162, 194};
+byte eos[] = {0, 3, 2, 0};
+byte excl[] = {0, 250, 0};
+byte ques[] = {64, 128, 138, 144, 96};
+>>>>>>> d1902b30f24d7e4fbf137024c1c2a1d3bdcf2676
 
 float delayTime = 1;
 
@@ -63,17 +95,18 @@ void setup()
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
   FastLED.setBrightness(BRIGHTNESS);
   DDRB &= B11101111; //13 input
-
-  //PORTB &= B10111110; //8 to 13 LOW
 }
 
 void draw_a_line(int this_line)
 {
-  for (int i = 0; i < 8; ++i)
-  {
-    leds[i] = this_line & (1 << i)?CRGB:: Red : CRGB::Black;
-    //leds[i] = this_line & (1 << i);
-  }
+  leds[0] = this_line & 0b00000001 ? CRGB::Red : CRGB::Black;
+  leds[1] = this_line & 0b00000010 ? CRGB::Red : CRGB::Black;
+  leds[2] = this_line & 0b00000100 ? CRGB::Red : CRGB::Black;
+  leds[3] = this_line & 0b00001000 ? CRGB::Red : CRGB::Black;
+  leds[4] = this_line & 0b00010000 ? CRGB::Red : CRGB::Black;
+  leds[5] = this_line & 0b00100000 ? CRGB::Red : CRGB::Black;
+  leds[6] = this_line & 0b01000000 ? CRGB::Red : CRGB::Black;
+  leds[7] = this_line & 0b10000000 ? CRGB::Red : CRGB::Black;
   FastLED.show();
 }
 
@@ -88,267 +121,93 @@ void displayChar(char cr, float line_delay)
     draw_a_line(0);
   }
   if (cr == 'a')
-  {
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(a[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'b')
-  {
+  else if (cr == 'b')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(b[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'c')
-  {
+  else if (cr == 'c')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(c[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'd')
-  {
+  else if (cr == 'd')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(d[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'e')
-  {
+  else if (cr == 'e')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(e[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'f')
-  {
+  else if (cr == 'f')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(f[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'g')
-  {
+  else if (cr == 'g')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(g[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'h')
-  {
+  else if (cr == 'h')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(h[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'i')
-  {
+  else if (cr == 'i')
     for (int itr = 0; itr < 3; itr++)
-    {
       draw_a_line(i[itr]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'j')
-  {
+  else if (cr == 'j')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(j[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'k')
-  {
+  else if (cr == 'k')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(k[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'l')
-  {
+  else if (cr == 'l')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(l[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'm')
-  {
+  else if (cr == 'm')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(m[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'n')
-  {
+  else if (cr == 'n')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(n[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'o')
-  {
+  else if (cr == 'o')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(o[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'p')
-  {
+  else if (cr == 'p')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(p[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'q')
-  {
+  else if (cr == 'q')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(q_letter[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'r')
-  {
+  else if (cr == 'r')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(r[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 's')
-  {
+  else if (cr == 's')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(s[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 't')
-  {
+  else if (cr == 't')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(t[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'u')
-  {
+  else if (cr == 'u')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(u[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'v')
-  {
+  else if (cr == 'v')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(v[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'w')
-  {
+  else if (cr == 'w')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(w[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'x')
-  {
+  else if (cr == 'x')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(x[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'y')
-  {
+  else if (cr == 'y')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(y[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == 'z')
-  {
+  else if (cr == 'z')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(z[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == '!')
-  {
+  else if (cr == '!')
     for (int i = 0; i < 3; i++)
-    {
       draw_a_line(excl[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == '?')
-  {
+  else if (cr == '?')
     for (int i = 0; i < 5; i++)
-    {
       draw_a_line(ques[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  if (cr == '.')
-  {
+  else if (cr == '.')
     for (int i = 0; i < 4; i++)
-    {
       draw_a_line(eos[i]);
-      delayMicroseconds(line_delay);
-    }
-    draw_a_line(0);
-  }
-  delayMicroseconds(line_delay * 2);
+  draw_a_line(0);
 }
 
 void displayString(char *s, float line_delay)
@@ -360,10 +219,17 @@ void displayString(char *s, float line_delay)
 }
 
 void loop()
+<<<<<<< HEAD
 {
   currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
   delayTime = time_per_deg *2 ; //we want 2 degrees for each line of the letters
+=======
+{ 
+  currentMillis = micros();
+  elapsed_loop_counter = currentMillis - previousMillis;
+  delayTime = time_per_deg; //we want 2 degrees for each line of the letters
+>>>>>>> d1902b30f24d7e4fbf137024c1c2a1d3bdcf2676
 
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
   if ((elapsed_loop_counter >= time_per_deg * (216)) && (elapsed_loop_counter < time_per_deg * (217)) && text_ok)
@@ -372,18 +238,6 @@ void loop()
     //delayMicroseconds(delayTime*10);
     text_ok = 0;
   }
-
-/*
-  //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
-  currentMillis = micros();
-  elapsed_loop_counter = currentMillis - previousMillis;
-  delayTime = 2000;
-  //if ((elapsed_loop_counter >= 10 * (216)) && (elapsed_loop_counter < 10 * (217)) && text_ok)
-  //{
-    displayString("ntuee", delayTime);
-    //delayMicroseconds(delayTime*10);
-    //text_ok = 0;
-  //}*/
 }
 
 ISR(PCINT0_vect)
