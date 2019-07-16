@@ -374,11 +374,12 @@ void loop()
           leds[i] = CRGB(lines[j][i][0],lines[j][i][1],lines[j][i][2]);
       }
       FastLED.show();
-      /*for(int i=0; i<NUM_LEDS; i++){
+      
+    }
+    for(int i=0; i<NUM_LEDS; i++){
           leds[i] = CRGB(0,0,0);
       }
-      FastLED.show();*/
-    }
+    FastLED.show();
     //displayString("abcdefg", delayTime);
     //delayMicroseconds(delayTime*10);
     text_ok = 0;
