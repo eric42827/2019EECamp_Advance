@@ -146,7 +146,7 @@ void loop() {
   if((elapsed_loop_counter >=  time_per_deg*(216)) && (elapsed_loop_counter <  time_per_deg*(217)) &&  text_ok)
   { 
   //displayString("electronoobs.",delayTime);
-  displayString(".",delayTime);
+  displayString("nishi",delayTime);
   //delayMicroseconds(delayTime*10);
   text_ok=0;
   }

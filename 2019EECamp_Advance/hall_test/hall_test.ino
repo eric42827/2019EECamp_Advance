@@ -3,7 +3,7 @@
  //          Author: Nick Koumaris           //
 //           http://www.educ8s.tv           //
 /////////////////////////////////////////////
-int hallSensorPin = 13;     
+int hallSensorPin = 12;     
 int ledPin =  8;    
 int state = 0;
 bool prev_state = 0;
@@ -16,8 +16,9 @@ void setup() {
 }
 
 void loop(){
-  
+  //Serial.println("cctime2q");
   state = digitalRead(hallSensorPin);
+  Serial.println(state);
   if(prev_state != state) {
    if (state == LOW) {  // HIGH to LOW
       current = micros();
@@ -29,7 +30,7 @@ void loop(){
      prev_state = LOW; 
    } 
    else { // LOW to HIGH
-     //Serial.println("cctime");
+     Serial.println("cctime");
      digitalWrite(ledPin, LOW); 
       prev_state = HIGH;
    }

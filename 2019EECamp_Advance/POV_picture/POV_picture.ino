@@ -1,41 +1,9 @@
-/* Electronoobs POV dsiplay (Persistance of vision)
- * 
- * Subscribe: http://www.youtube.com/c/ELECTRONOOBS
- * Tutorial: http://www.electronoobs.com/eng_arduino_tut21.php
- *//*
-#include <bitswap.h>
-#include <chipsets.h>
-#include <color.h>
-#include <colorpalettes.h>
-#include <colorutils.h>
-#include <controller.h>
-#include <cpp_compat.h>
-#include <dmx.h>
 #include <FastLED.h>
-#include <fastled_config.h>
-#include <fastled_delay.h>
-#include <fastled_progmem.h>
-#include <fastpin.h>
-#include <fastspi.h>
-#include <fastspi_bitbang.h>
-#include <fastspi_dma.h>
-#include <fastspi_nop.h>
-#include <fastspi_ref.h>
-#include <fastspi_types.h>
-#include <hsv2rgb.h>
-#include <led_sysdefs.h>
-#include <lib8tion.h>
-#include <noise.h>
-#include <pixelset.h>
-#include <pixeltypes.h>
-#include <platforms.h>
-#include <power_mgt.h>
-*/
-#include <FastLED.h>
+#include "picture.h"
 #define LED_PIN 8
 #define NUM_LEDS 8
 #define BRIGHTNESS 30
-#define LED_TYPE WS2811
+#define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
 #define UPDATES_PER_SECOND 100
@@ -67,7 +35,7 @@ int w[] = {254, 4, 8, 4, 254};
 int x[] = {198, 40, 16, 40, 198};
 int y[] = {224, 16, 14, 16, 224};
 int z[] = {134, 138, 146, 162, 194};
-
+int te[] = {3,48,192,48,3};
 int eos[] = {0, 3, 2, 0};
 int excl[] = {0, 250, 0};
 int ques[] = {64, 128, 138, 144, 96};
@@ -112,6 +80,14 @@ void draw_a_line(int this_line)
 
 void displayChar(char cr, float line_delay)
 {
+  if (cr == "1"){
+    for (int i = 0; i < 5; i++)
+    {
+      draw_a_line(te[i]);
+      delayMicroseconds(line_delay);
+    }
+    draw_a_line(0);
+  }
   if (cr == 'a')
   {
     for (int i = 0; i < 5; i++)
@@ -376,18 +352,8 @@ void displayChar(char cr, float line_delay)
   delayMicroseconds(line_delay * 2);
 }
 
-void displayString(const char *s, float line_delay)
+void displayString(char *s, float line_delay)
 {
-  auto len = strlen(s);
-  int totalLine = 2*len; // for spacing between char
-  for(int i=0; i < len; ++i) {
-    if(i == '.')
-      totalLine += 4;
-    else if(i == 'i' || i == '!')
-      totalLine += 3;  
-    else
-      totalLine += 5;
-  }
   for (int i = 0; i <= strlen(s); i++)
   {
     displayChar(s[i], line_delay);
@@ -396,27 +362,27 @@ void displayString(const char *s, float line_delay)
 
 void loop()
 {
-
   currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
-  delayTime = time_per_deg ; //we want 2 degrees for each line of the letters
+  delayTime = time_per_deg *2 ; //we want 2 degrees for each line of the letters
 
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
-  if ((elapsed_loop_counter >= 0) && (elapsed_loop_counter < time_per_deg) && text_ok)
+  if ((elapsed_loop_counter >= time_per_deg * (1)) && (elapsed_loop_counter < time_per_deg * (2)) && text_ok)
   {
-//    displayString("ntuee.", delayTime);
-    draw_a_line(0b11111111);
-    delayMicroseconds(1);
-    draw_a_line(0);
+    for(int j=0;j<64;j++){
+      for(int i=0; i<NUM_LEDS; i++){
+          leds[i] = CRGB(lines[j][i][0],lines[j][i][1],lines[j][i][2]);
+      }
+      FastLED.show();
+      /*for(int i=0; i<NUM_LEDS; i++){
+          leds[i] = CRGB(0,0,0);
+      }
+      FastLED.show();*/
+    }
+    //displayString("abcdefg", delayTime);
     //delayMicroseconds(delayTime*10);
     text_ok = 0;
   }
-//  if((elapsed_loop_counter >= time_per_deg * (216)) && (elapsed_loop_counter < time_per_deg * (217)) && text_ok)
-//  {
-//    displayString("ntuee.", delayTime);
-//    //delayMicroseconds(delayTime*10);
-//    text_ok = 0;
-//  }
 
 /*
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
@@ -445,7 +411,6 @@ ISR(PCINT0_vect)
       counter_1 = current_count; //Set counter_1 to current value.
     }
   }
-//  else
   else if (last_IN_state == 1)
   {                                           //If pin 8 is LOW and the last state was HIGH then we have a state change
     last_IN_state = 0;                        //Store the current state into the last state for the next loop

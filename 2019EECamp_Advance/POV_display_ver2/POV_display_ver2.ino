@@ -192,7 +192,7 @@ void loop()
   delayTime = time_per_deg ; //we want 2 degrees for each line of the letters
 
   if(text_ok && isEvenRound) {
-    if(atDegree)
+    if(atDegree(216))
 
   } else {
 

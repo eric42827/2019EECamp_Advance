@@ -34,7 +34,7 @@ int w[] = {254, 4, 8, 4, 254};
 int x[] = {198, 40, 16, 40, 198};
 int y[] = {224, 16, 14, 16, 224};
 int z[] = {134, 138, 146, 162, 194};
-
+int te[] = {3,48,192,48,3};
 int eos[] = {0, 3, 2, 0};
 int excl[] = {0, 250, 0};
 int ques[] = {64, 128, 138, 144, 96};
@@ -79,6 +79,14 @@ void draw_a_line(int this_line)
 
 void displayChar(char cr, float line_delay)
 {
+  if (cr == "1"){
+    for (int i = 0; i < 5; i++)
+    {
+      draw_a_line(te[i]);
+      delayMicroseconds(line_delay);
+    }
+    draw_a_line(0);
+  }
   if (cr == 'a')
   {
     for (int i = 0; i < 5; i++)
@@ -353,15 +361,14 @@ void displayString(char *s, float line_delay)
 
 void loop()
 {
-  
   currentMillis = micros();
   elapsed_loop_counter = currentMillis - previousMillis;
-  delayTime = time_per_deg ; //we want 2 degrees for each line of the letters
+  delayTime = time_per_deg *2 ; //we want 2 degrees for each line of the letters
 
   //This if here is to make sure I'll start printing at 216 deg so the text will be centered.
   if ((elapsed_loop_counter >= time_per_deg * (216)) && (elapsed_loop_counter < time_per_deg * (217)) && text_ok)
   {
-    displayString("ntuee.", delayTime);
+    displayString("abcdefg", delayTime);
     //delayMicroseconds(delayTime*10);
     text_ok = 0;
   }
