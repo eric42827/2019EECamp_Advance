@@ -1,10 +1,17 @@
 from skimage import io
-from argparse import ArgumentParser
 import math
-import turtle as tt
+if __name__ != '__main__' :
+	import turtle as tt
+
+FILE_NAME = './duck_green.png'
+OUT_FILE  = './duck_green.h'
+
+
+#################################
+#  Do not move the code below   #
+#################################
 
 LED_NUM = 8
-
 def picture2Lines(picture, output, num) :
 	pic = io.imread(picture).astype('int')
 
@@ -47,17 +54,12 @@ def picture2Lines(picture, output, num) :
 
 		f.write('};\n')
 
-def turtle2lines(output, num) :
-	tt.getscreen().getcanvas().postscript(file='.temp.ps')
-	picture2Lines('.temp.ps', output, num)
+if __name__ != '__main__':
+	def turtle2lines(output, num) :
+		tt.getscreen().getcanvas().postscript(file='.temp.ps')
+		picture2Lines('.temp.ps', output, num)
 
 
 
 if __name__ == '__main__':
-	parser = ArgumentParser(description='A program that convert jpg to hardware format.')
-	parser.add_argument('pic', help='Input pucture.')
-	parser.add_argument('-o', dest="out", default="picture.h", help='output file name.')
-	parser.add_argument('-n', dest="num", type=int, default=64, help='number of stripes.')
-
-	args = parser.parse_args()
-	picture2Lines(args.pic, args.out, args.num)
+	picture2Lines(FILE_NAME, OUT_FILE, 64)
