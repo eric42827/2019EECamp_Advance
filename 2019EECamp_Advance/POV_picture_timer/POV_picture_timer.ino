@@ -1,8 +1,9 @@
 #include <FastLED.h>
 //#include "rich.h"
+#include "duck_green.h"
 //#include "allwant.h"
 //#include "bigmouthbird.h"
-#include "flag.h"
+//#include "flag.h"
 //#include "max.h"
 #define LED_PIN 8
 #define NUM_LEDS 8

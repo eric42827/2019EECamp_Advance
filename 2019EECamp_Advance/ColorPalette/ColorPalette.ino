@@ -106,9 +106,10 @@ void setup() {
 
 void loop()
 {
+    
     ChangePalettePeriodically();
-    //float voltage = digitalRead(12);
-    //Serial.println(voltage);
+    float voltage = digitalRead(8);
+    Serial.println(voltage);
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
     
@@ -141,8 +142,8 @@ void ChangePalettePeriodically()
 {
     uint8_t secondHand = (millis() / 1000) % 60;
     static uint8_t lastSecond = 99;
-     SetupBlackAndWhiteStripedPalette();   currentBlending = NOBLEND;
-    /*if( lastSecond != secondHand) {
+     //SetupBlackAndWhiteStripedPalette();   currentBlending = NOBLEND;
+    if( lastSecond != secondHand) {
         lastSecond = secondHand;
         if( secondHand ==  0)  { currentPalette = RainbowColors_p;         currentBlending = LINEARBLEND; }
         if( secondHand == 10)  { currentPalette = RainbowStripeColors_p;   currentBlending = NOBLEND;  }
@@ -155,7 +156,7 @@ void ChangePalettePeriodically()
         if( secondHand == 45)  { currentPalette = PartyColors_p;           currentBlending = LINEARBLEND; }
         if( secondHand == 50)  { currentPalette = myRedWhiteBluePalette_p; currentBlending = NOBLEND;  }
         if( secondHand == 55)  { currentPalette = myRedWhiteBluePalette_p; currentBlending = LINEARBLEND; }
-    }*/
+    }
 }
 
 // This function fills the palette with totally random colors.
