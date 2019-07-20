@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 from skimage import io
 import math
 import turtle as tt
@@ -29,7 +30,7 @@ def picture2Lines(picture, output, num) :
         f.write(' = {\n')
 
         for i in range(num) :
-            theta = 3/2 * math.pi - 2* math.pi / num * i # 270 - degree
+            theta = 3/2 * math.pi + 2* math.pi / num * i # 270 + degree
             f.write('{')
 
             for j in range(LED_NUM) : # LED number
@@ -53,6 +54,7 @@ def picture2Lines(picture, output, num) :
 
         f.write('};\n')
 
+# only for linux
 def turtle2lines(output, num) :
         tt.getscreen().getcanvas().postscript(file='.temp.ps')
         picture2Lines('.temp.ps', output, num)
@@ -60,4 +62,10 @@ def turtle2lines(output, num) :
 
 
 if __name__ == '__main__':
-    picture2Lines(FILE_NAME, OUT_FILE, 64)
+    parser = ArgumentParser(description='A program that convert the picture to LED stripes.')
+    parser.add_argument('-i', dest='pic', default=FILE_NAME, help='Input pucture.')
+    parser.add_argument('-o', dest="out", default=OUT_FILE, help='output header name.')
+    parser.add_argument('-n', dest="num", type=int, default=64, help='number of stripes.')
+
+    args = parser.parse_args()
+    picture2Lines(args.pic, args.out, args.num)
