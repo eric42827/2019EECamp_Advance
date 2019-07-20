@@ -1,13 +1,9 @@
-#define Speed 4
-#define Long 180
-
-const byte Led[4] = {9, 10, 11, 12};
+const byte threshold = 180;
+const byte pin[4] = {6, 9, 10, 11};
 int brightness[4];
-byte i;
 
 void darken(int index)
 {
-    analogWrite(Led[index], brightness[index]);
     brightness[index] -= 1;
     if (brightness[index] < 1)
         brightness[index] = 0;
@@ -15,29 +11,36 @@ void darken(int index)
 
 void setup()
 {
-    for (i = 0; i < 4; i++)
-        pinMode(Led[i], OUTPUT);
+    for (byte i = 0; i < 4; i++)
+        pinMode(pin[i], OUTPUT);
 }
 
 void loop()
 {
-    for (i = 0; i < 4; i++)
+    for(byte i = 0; i < 4; i += 1) {
         brightness[i] = 255;
-    i = 0;
-    while (brightness[3] > 0)
-    {
-        darken(i);
-        if (i > 0)
-            darken(i - 1);
-        if (i > 1)
-            darken(i - 2);
-        if (i > 2)
-            darken(i - 3);
-        if (i > 3)
-            darken(i - 4);
-        if (brightness[i] == Long && i < 4)
-            i++;
-        delay(6 - Speed);
     }
-    delay(150);
+    for (byte i = 0; brightness[3] > 0; ) {
+        for(int j = i; j >= 0; j -= 1) {
+            analogWrite(pin[j], brightness[j]);
+            darken(j);
+        }
+        if (brightness[i] == threshold && i < 3)
+            i += 1;
+        delay(2);
+    }
+    delay(300);
+    for(byte i = 0; i < 4; i += 1) {
+        brightness[i] = 255;
+    }
+    for (byte i = 0; brightness[3] > 0; ) {
+        for(int j = i; j >= 0; j -= 1) {
+            analogWrite(pin[3 - j], brightness[j]);
+            darken(j);
+        }
+        if (brightness[i] == threshold && i < 3)
+            i += 1;
+        delay(2);
+    }
+    delay(300);
 }
