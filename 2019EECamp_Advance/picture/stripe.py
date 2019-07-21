@@ -25,7 +25,8 @@ if __name__ == "__main__":
 LED_NUM = 8
 
 def is_white(pixel) :
-    return pixel[0] > 240 and pixel[1] > 240 and pixel[2] > 240
+    step = 230
+    return pixel[0] > step and pixel[1] > step and pixel[2] > step
 
 def picture2Lines(picture, output, num, white = False) :
     pic = io.imread(picture).astype('int')
