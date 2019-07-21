@@ -11,8 +11,9 @@ void darken(int index)
 
 void setup()
 {
-    for (byte i = 0; i < 4; i++)
+    for (byte i = 0; i < 4; i += 1) {
         pinMode(pin[i], OUTPUT);
+    }
 }
 
 void loop()
