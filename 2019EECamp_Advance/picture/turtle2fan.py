@@ -1,12 +1,20 @@
+from argparse import ArgumentParser
 import stripe
 import turtle as tt
 import svgwrite
 from svg_turtle import SvgTurtle
-import cairosvg
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF, renderPM
+#import cairosvg
 
-OUTPUT_FILE = 'picture.h' # modify this line
+OUT_FILE = 'picture.h' # modify this line
 
-TEMP_FILE = 'temp'
+parser = ArgumentParser(description='A program that convert the picture to LED stripes.')
+parser.add_argument('-o', dest="out", default=OUT_FILE, help='output header name.')
+parser.add_argument('-n', dest="num", type=int, default=64, help='number of stripes.')
+args = parser.parse_args()
+
+TEMP_FILE = '.temp'
 drawing = svgwrite.Drawing(TEMP_FILE + '.svg', size=("500px", "500px"))
 drawing.add(drawing.rect(fill='white', size=("100%", "100%")))
 t = SvgTurtle(drawing)
@@ -31,5 +39,9 @@ tt.end_fill()
 # draw your picture above  #
 ############################
 drawing.save()
-cairosvg.svg2png(url=TEMP_FILE + '.svg', write_to=TEMP_FILE + '.png')
-stripe.picture2Lines(TEMP_FILE + '.png', OUTPUT_FILE, 64)
+drawing = svg2rlg(TEMP_FILE + ".svg")
+renderPM.drawToFile(drawing, TEMP_FILE + ".png", fmt="PNG")
+#cairosvg.svg2png(url=TEMP_FILE + '.svg', write_to=TEMP_FILE + '.png')
+
+
+stripe.picture2Lines(TEMP_FILE + '.png', args.out, args.num)
