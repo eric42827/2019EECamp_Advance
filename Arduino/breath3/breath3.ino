@@ -7,7 +7,7 @@ void setup()
 
 void loop()
 {
-    analogWrite(10, multiplier * sin(theta) + multiplier);
+    analogWrite(6, multiplier * sin(theta) + multiplier);
     delay(10);
     theta += delta;
 }
