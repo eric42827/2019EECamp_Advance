@@ -1,7 +1,6 @@
 from argparse import ArgumentParser
 from skimage import io
 import math
-import turtle as tt
 
 if __name__ == "__main__":
     FILE_NAME = './duck_green.png'
@@ -103,13 +102,6 @@ def flatten(picture, output, num, white = False) :
             f.write('\n')
             
         f.write('};\n')
-
-# only for linux
-def turtle2lines(output, num) :
-        tt.getscreen().getcanvas().postscript(file='.temp.ps')
-        picture2Lines('.temp.ps', output, num)
-
-
 
 if __name__ == '__main__':
     parser = ArgumentParser(description='A program that convert the picture to LED stripes.')

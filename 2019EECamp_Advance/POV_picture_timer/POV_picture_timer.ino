@@ -1,5 +1,4 @@
 #include <FastLED.h>
-//#include "rich.h"
 //#include "duck_green.h"
 //#include "allwant.h"
 //#include "bigmouthbird.h"
