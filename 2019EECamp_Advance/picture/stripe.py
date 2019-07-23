@@ -4,18 +4,10 @@ import math
 import turtle as tt
 
 if __name__ == "__main__":
-
-############################
-# edit the setting below   #
-############################
     FILE_NAME = './duck_green.png'
     OUT_FILE  = './duck_green.h'
     FLATTEN = False
     WHITE = False
-
-############################
-# edit the setting above   #
-############################
 
 
 #################################
